@@ -1,0 +1,1 @@
+docker build -t sae41 -f dockerfile1 .
