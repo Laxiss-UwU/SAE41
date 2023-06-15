@@ -1,1 +1,1 @@
-docker run --rm --network=host -h=127.0.0.1:3306 sae41
+docker run --name sae --network=host -h=127.0.0.1:3306 sae41

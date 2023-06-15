@@ -3,10 +3,46 @@ from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
-@app.route("/")
-def home():
-	return ("hello")
+app.config["MYSQL_HOST"] = "127.0.0.1"
+app.config["MYSQL_USER"] = "root"
+app.config["MYSQL_PASSWORD"] = "foo"
+app.config["MYSQL_DB"] = "SAE41"
+mysql = MySQL(app)
 
-@app.route("/test")
-def test():
-	return ("test")
+@app.route("/", methods = ["POST", "GET"])
+def login():
+
+	return render_template("index.html")
+
+	if request.method == "POST":
+		username = request.form["username"]
+		password = request.form["password"]
+		cursor = mysql.connection.cursor()
+		query = "SELECT * FROM users WHERE username = %s AND password = %s"
+		cursor.execute(query, (username, password))
+		result = cursor.fetchone()
+		cursor.close()
+
+		if result is not None: 
+			return render_template("login.html")
+		else:
+			return 'Identifiants incorrects. Veuillez réessayer.'
+			return render_template("index.html")
+
+@app.route('/register.html', methods=['GET', 'POST'])
+def register():
+	if request.method == 'POST':
+		username = request.form["username"]
+		password = request.form["password"]
+		cursor = mysql.connection.cursor()
+		query = "INSERT INTO users(username,password) VALUES(%s,%s)"
+		cursor.execute(query, (username, password))
+		result = cursor.fetchone()
+		cursor.close()
+		return 'Inscription réussie !'
+
+	return render_template('register.html')
+
+if __name__ == "__main__":
+    app.run()
+
