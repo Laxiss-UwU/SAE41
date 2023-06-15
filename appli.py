@@ -10,7 +10,7 @@ app.config["MYSQL_DB"] = "SAE41"
 mysql = MySQL(app)
 
 @app.route("/", methods = ["POST", "GET"])
-def login():
+def connexion():
 	if request.method == "POST":
 		username = request.form["username"]
 		password = request.form["password"]
@@ -60,6 +60,10 @@ def register():
 		return render_template("inscrit.html")
 	
 	return render_template("register.html")
+
+@app.route("/login.html", methods = ["POST", "GET"])
+def calendar():
+	return render_template("login.html")
 
 if __name__ == "__main__":
     app.run()
