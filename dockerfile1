@@ -5,10 +5,10 @@ RUN apt-get -y install default-libmysqlclient-dev
 RUN pip install flask
 RUN pip install flask-mysqldb
 COPY appli.py appli.py
-CMD sudo su
-CMD bob
-CMD mkdir /var/lib/mysql
-CMD mv -r SAE41 /var/lib/mysql/
+CMD cd /var/lib
+CMD mkdir mysql
+COPY SAE41/* mysql/
+CMD cd /
 CMD mkdir templates
 COPY templates/* templates/
 CMD /usr/local/bin/flask --app appli.py run
