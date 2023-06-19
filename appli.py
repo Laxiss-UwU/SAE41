@@ -38,8 +38,9 @@ def login():
 		cursor.execute(query, (username, password))
 		result = cursor.fetchall()
 		cursor.close()
+		nom_utilisateur=result[0]
 
-		if result is not None: 
+		if result is not None:
 			return render_template("login.html")
 		else:
 			return render_template("index.html")

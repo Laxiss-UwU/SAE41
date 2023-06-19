@@ -1,15 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>DJ Calendar</title>
-<style>
- 
-</style>
+  <title>DJ Calendar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      width: 400px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  </style>
 </head>
-<header> 
-	<h1> Vous êtes connecté ! </h1>
+<header>
+	<h1>Bonjour <span id="username_placeholder"></span> ! Bienvenue dans votre espace personnel !</h1>
 </header>
 <body>
-  
+  <div class="container">
+    <section>
+      <h2>Rendez-vous</h2>
+      <!-- Insérez ici le code pour afficher les rendez-vous -->
+    </section>
+    
+    <section>
+      <h2>Rendez-vous en attente de validation</h2>
+      <!-- Insérez ici le code pour afficher les rendez-vous en attente de validation -->
+    </section>
+    
+    <section>
+      <h2>Calendrier</h2>
+      <!-- Insérez ici le code pour afficher le calendrier -->
+    </section>
+  </div>
+
+<script>
+    // Récupération du nom d'utilisateur depuis Python
+    var username = nom_utilisateur;
+
+    // Recherche de la balise ou le marqueur de substitution
+    var usernamePlaceholder = document.getElementById("username_placeholder");
+
+    // Remplacement du contenu avec le nom d'utilisateur
+    usernamePlaceholder.textContent = username;
+</script>
+
 </body>
 </html>
