@@ -20,8 +20,10 @@ def connexion():
 		result = cursor.fetchall()
 		cursor.close()
 
-		if result is not None: 
-			return render_template("login.html")
+		if result is not None:
+			for x in result:
+				nom_utilisateur=x[0]
+			return render_template("login.html",nom_utilisateur=nom_utilisateur)
 		else:
 			return render_template("index.html")
 
@@ -38,10 +40,12 @@ def login():
 		cursor.execute(query, (username, password))
 		result = cursor.fetchall()
 		cursor.close()
-		nom_utilisateur=result[0]
 
 		if result is not None:
-			return render_template("login.html")
+			for x in result:
+				global nom_utilisateur
+				nom_utilisateur=x[0]
+			return render_template("login.html",nom_utilisateur=nom_utilisateur)
 		else:
 			return render_template("index.html")
 
@@ -64,7 +68,22 @@ def register():
 
 @app.route("/login.html", methods = ["POST", "GET"])
 def calendar():
-	return render_template("login.html")
+	tableau_rdv = {}
+	cursor = mysql.connection.cursor()
+	user_id = "SELECT id FROM users WHERE username = nom_utilisateur"
+	query = "SELECT dates FROM meetings WHERE id_owner = %s"
+	cursor.execute(query, (user_id))
+	result = cursor.fetchall()
+	cursor.close()
+	
+	for x in result:
+		date = x[0][:-5]
+		heure = x[0][-4:]
+		caractere = "h"
+		taille = len(heure) // 2
+		heure_finale = heure[:taille] + caractere + heure[taille:]
+		tableau_rdv = {date,heure_finale}
+	return render_template("login.html",date=date,heure_finale=heure_finale, tableau_rdv=tableau_rdv)
 
 if __name__ == "__main__":
     app.run()
