@@ -1,0 +1,43 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7
+    restart: unless-stopped
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: 'SAE41'
+      MYSQL_ROOT_PASSWORD: 'foo'
+    ports:
+      - '3306:3306'
+    volumes:
+      - my-db:/var/lib/mysql
+      - .bdd.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+
+    networks:
+      SAE41_network:
+        ipv4_address: 172.20.0.10
+
+  flask:
+    build:
+      context: .
+      dockerfile: dockerfile1
+    container_name: sae
+    environment:
+      PORT: 3306
+    ports:
+      - '5000:5000'
+    restart: unless-stopped
+    networks:
+      SAE41_network:
+        ipv4_address: 172.20.0.20
+
+# Names our volume
+volumes:
+  my-db:
+
+networks:
+  SAE41_network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+          gateway: 172.20.0.1

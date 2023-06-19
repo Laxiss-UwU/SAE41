@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7
+    restart: unless-stopped
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: 'SAE41'
+      MYSQL_ROOT_PASSWORD: 'foo'
+    ports:
+      - '3306:3306'
+    volumes:
+      - my-db:/var/lib/mysql
+      - ./app/bdd.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+
+  flask:
+    build:
+      context: .
+      dockerfile: dockerfile1
+    container_name: sae
+    environment:
+      PORT: 5000
+    ports:
+      - '5000:5000'
+    restart: unless-stopped
+
+# Names our volume
+volumes:
+  my-db:
