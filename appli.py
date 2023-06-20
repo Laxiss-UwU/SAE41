@@ -64,23 +64,19 @@ def calendar():
 	for x in table:
 		user_id = table[0][0]
 
-	#cursor = mysql.connection.cursor()
-	#query = "SELECT dates FROM meetings WHERE id_owner = %s"
-	#cursor.execute(query, (user_id))
-	#result = cursor.fetchall()
-	#cursor.close()
-
-	#tableau_rdv = []
+	cursor = mysql.connection.cursor()
+	query = "SELECT jour, mois, annee, heure FROM rdv WHERE id_user = %s"
+	cursor.execute(query, (user_id,))
+	result = cursor.fetchall()
+	cursor.close()
 	
-	#for x in result:
-	#	date = x[0][:-5]
-	#	heure = x[0][-4:]
-	#	caractere = "h"
-	#	taille = len(heure) // 2
-	#	heure_finale = heure[:taille] + caractere + heure[taille:]
-	#	tableau_rdv.append([date,heure_finale])
+	for x in result:
+		day = x[0]
+		month = x[1]
+		year = x[2]
+		hour = x[3]
 
-	return render_template("login.html", nom_utilisateur=nom_utilisateur, user_id=user_id)
+	return render_template("login.html", nom_utilisateur=nom_utilisateur, user_id=user_id, day=day, month=month, year=year, hour=hour, result=result)
 
 if __name__ == "__main__":
     app.run()
