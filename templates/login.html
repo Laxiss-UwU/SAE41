@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
   <title>DJ Calendar</title>
   <style>
+
     body {
       font-family: Arial, sans-serif;
       background-color: #fff;
@@ -11,7 +12,6 @@
     }
 
     header {
-      position:fixed;
       top: 0;
       left: 0;
       width: 100%;
@@ -29,10 +29,8 @@
 
     .container {
       background-color: #fff;
-      border-radius: 5px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       padding: 40px;
-      margin-top:150px;
+      margin-top:70px;
       color:black;
       position: relative;
       overflow: hidden;
@@ -40,17 +38,23 @@
 
     .left {
     float:left;
+    box-radius:5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .calendrier {
     float:right;
     margin-top:15px;
+    box-radius:5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin:10px;
     }
 
     .center{
     text-align:center;
     font-weight:bold;
     padding-top:20px;
+    font-size=21px;
     }
 
     table {
@@ -58,7 +62,11 @@
       width: 100%;
       font-family: Arial, sans-serif;
     }
-    
+
+    .tamere {
+     margin:30px;
+    }
+
     th, td {
       padding: 12px;
       text-align: left;
@@ -83,10 +91,21 @@
     .conteneur {
       display: flex;
       flex-direction: row;
+      border-radius: 5px;
     }
-  
+
     .div1, .div2 {
-      flex: 1;
+     flex: 1;
+    }
+
+    .div1 {
+     margin-left:15px;
+     margin-top:15px;
+    }
+
+    .div2 {
+     margin-right:15px;
+     margin-bottom:15px;
     }
 
     form {
@@ -130,6 +149,7 @@
 
     <div class="left">
       <p class="center"> Mes rendez-vous </p>
+      <div class="tamere">
 	<table>
          <thead>
           <tr>
@@ -164,17 +184,21 @@
           {% endfor %}
          </tbody>
         </table>
+      </div>
     </div>
 
     <div class="calendrier">
       <p class="center"> Calendrier et prise de rendez-vous</p>
       <div class="conteneur">
-       <div class="div1"><iframe name="InlineFrame1" id="InlineFrame1" style="width:690px;height:235px;" src="https://www.mathieuweb.fr/calendrier/calendrier-des-semaines.php?nb_mois=1&nb_mois_ligne=4&mois=0&an=0&langue=fr&texte_color=95DD90&week_color=E4F8EF&week_end_color=C9EDD8&police_color=4A4A4A&sel=true" scrolling="no" frameborder="0" allowtransparency="true"></iframe></div>
-       <div class="div2">
-        <form>
-        <label for="date">Date:</label>
-        <select id="jour">
-         <option value="01">01</option>
+       <div class="div1">
+	<iframe name="InlineFrame1" id="InlineFrame1" style="width:690px;height:235px;" src="https://www.mathieuweb.fr/calendrier/calendrier-des-semaines.php?nb_mois=1&nb_mois_ligne=4&mois=0&an=0&langue=fr&texte_color=95DD90&week_color=E4F8EF&week_end_color=C9EDD8&police_color=4A4A4A&sel=true" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+       </div>
+       <div class="div2">        
+	<form>
+        <label for="date" style="text-align:center;margin-bottom:10px;">Date et heure du rendez-vous:</label>
+	<select>
+         <option value="">Choisissez le jour</option>
+	 <option value="01">01</option>
 	 <option value="02">02</option>
 	 <option value="03">03</option>
 	 <option value="04">04</option>
@@ -207,8 +231,9 @@
 	 <option value="31">31</option>
         </select>
 
-	<select id="mois">
-         <option value="Janvier">Janvier</option>
+	<select>
+         <option value="">Choisissez le mois</option>
+	 <option value="Janvier">Janvier</option>
 	 <option value="Février">Février</option>
 	 <option value="Mars">Mars</option>
 	 <option value="Avril">Avril</option>
@@ -222,8 +247,9 @@
 	 <option value="Décembre">Décembre</option>
         </select>
 
-	<select id="année">
-         <option value="2023">2023</option>
+	<select>
+         <option value="">Choisissez l'année</option>
+	 <option value="2023">2023</option>
 	 <option value="2024">2024</option>
 	 <option value="2025">2025</option>
 	 <option value="2026">2026</option>
@@ -231,11 +257,14 @@
 	 <option value="2028">2028</option>
 	 <option value="2029">2029</option>
 	 <option value="2030">2030</option>
+	 <option value="2031">2031</option>
+	 <option value="2032">2032</option>
+	 <option value="2033">2033</option>
         </select>
 
-        <label for="heure">Heure:</label>
-        <select id="heure">
-         <option value="00:00">00:00</option>
+	<select>
+         <option value="">Choisissez l'heure</option>
+	 <option value="00:00">00:00</option>
 	 <option value="01:00">01:00</option>
 	 <option value="02:00">02:00</option>
 	 <option value="03:00">03:00</option>
@@ -260,11 +289,9 @@
 	 <option value="22:00">22:00</option>
 	 <option value="23:00">23:00</option>
         </select>
-
         <button type="submit">Envoyer</button>
        </form>
       </div>
-     </div>
     </div>
   </div>
 </body>
