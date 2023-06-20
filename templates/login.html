@@ -44,11 +44,13 @@
 
     .calendrier {
     float:right;
+    margin-top:15px;
     }
 
     .center{
     text-align:center;
     font-weight:bold;
+    padding-top:20px;
     }
 
     table {
@@ -78,6 +80,46 @@
       border: 1px solid #ddd;
     }
 
+    .conteneur {
+      display: flex;
+      flex-direction: row;
+    }
+  
+    .div1, .div2 {
+      flex: 1;
+    }
+
+    form {
+     max-width: 400px;
+     margin: 0 auto;
+     padding: 20px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+    }
+
+    label {
+     display: block;
+     margin-bottom: 10px;
+    }
+
+    select, button {
+     display: block;
+     width: 100%;
+     padding: 10px;
+     margin-bottom: 10px;
+    }
+
+    button {
+     background-color: #4CAF50;
+     color: white;
+     border: none;
+     cursor: pointer;
+    }
+
+    button:hover {
+     background-color: #45a049;
+    }
+
   </style>
 </head>
 <body>
@@ -93,23 +135,136 @@
           <tr>
            <th>Date</th>
            <th>Heure</th>
-	   <th>Validation</th>
           </tr>
          </thead>
          <tbody>
-          {% for date, heure_finale in tableau_rdv() %}
+          {% for rdv in tableau_rdv %}
           <tr>
-           <td>{{ item.objet }}</td>
-           <td>{{ item.date }}</td>
+           <td>{{ rdv[0] }}</td>
+           <td>{{ rdv[1] }}</td>
           </tr>
           {% endfor %}
          </tbody>
         </table>
-      <p> Réunion en attente de validation </p>
+      <p class="center"> Réunion en attente de validation </p>
+       <table>
+         <thead>
+          <tr>
+           <th>Date</th>
+           <th>Heure</th>
+	   <th>Validation</th>
+          </tr>
+         </thead>
+         <tbody>
+          {% for rdv in tableau_rdv %}
+          <tr>
+           <td>{{ rdv[0] }}</td>
+           <td>{{ rdv[1] }}</td>
+          </tr>
+          {% endfor %}
+         </tbody>
+        </table>
     </div>
 
     <div class="calendrier">
-      <p> Calendrier </p>
+      <p class="center"> Calendrier et prise de rendez-vous</p>
+      <div class="conteneur">
+       <div class="div1"><iframe name="InlineFrame1" id="InlineFrame1" style="width:690px;height:235px;" src="https://www.mathieuweb.fr/calendrier/calendrier-des-semaines.php?nb_mois=1&nb_mois_ligne=4&mois=0&an=0&langue=fr&texte_color=95DD90&week_color=E4F8EF&week_end_color=C9EDD8&police_color=4A4A4A&sel=true" scrolling="no" frameborder="0" allowtransparency="true"></iframe></div>
+       <div class="div2">
+        <form>
+        <label for="date">Date:</label>
+        <select id="jour">
+         <option value="01">01</option>
+	 <option value="02">02</option>
+	 <option value="03">03</option>
+	 <option value="04">04</option>
+	 <option value="05">05</option>
+	 <option value="06">06</option>
+	 <option value="07">07</option>
+	 <option value="08">08</option>
+	 <option value="09">09</option>
+	 <option value="10">10</option>
+	 <option value="11">11</option>
+	 <option value="12">12</option>
+	 <option value="13">13</option>
+	 <option value="14">14</option>
+	 <option value="15">15</option>
+	 <option value="16">16</option>
+	 <option value="17">17</option>
+	 <option value="18">18</option>
+	 <option value="19">19</option>
+	 <option value="20">20</option>
+	 <option value="21">21</option>
+	 <option value="22">22</option>
+	 <option value="23">23</option>
+	 <option value="24">24</option>
+	 <option value="25">25</option>
+	 <option value="26">26</option>
+	 <option value="27">27</option>
+	 <option value="28">28</option>
+	 <option value="29">29</option>
+	 <option value="30">30</option>
+	 <option value="31">31</option>
+        </select>
+
+	<select id="mois">
+         <option value="Janvier">Janvier</option>
+	 <option value="Février">Février</option>
+	 <option value="Mars">Mars</option>
+	 <option value="Avril">Avril</option>
+	 <option value="Mai">Mai</option>
+	 <option value="Juin">Juin</option>
+	 <option value="Juillet">Juillet</option>
+	 <option value="Août">Août</option>
+	 <option value="Septembre">Septembre</option>
+	 <option value="Octobre">Octobre</option>
+	 <option value="Novembre">Novembre</option>
+	 <option value="Décembre">Décembre</option>
+        </select>
+
+	<select id="année">
+         <option value="2023">2023</option>
+	 <option value="2024">2024</option>
+	 <option value="2025">2025</option>
+	 <option value="2026">2026</option>
+	 <option value="2027">2027</option>
+	 <option value="2028">2028</option>
+	 <option value="2029">2029</option>
+	 <option value="2030">2030</option>
+        </select>
+
+        <label for="heure">Heure:</label>
+        <select id="heure">
+         <option value="00:00">00:00</option>
+	 <option value="01:00">01:00</option>
+	 <option value="02:00">02:00</option>
+	 <option value="03:00">03:00</option>
+	 <option value="04:00">04:00</option>
+	 <option value="05:00">05:00</option>
+	 <option value="06:00">06:00</option>
+	 <option value="07:00">07:00</option>
+	 <option value="08:00">08:00</option>
+	 <option value="09:00">09:00</option>
+	 <option value="10:00">10:00</option>
+	 <option value="11:00">11:00</option>
+	 <option value="12:00">12:00</option>
+	 <option value="13:00">13:00</option>
+	 <option value="14:00">14:00</option>
+	 <option value="15:00">15:00</option>
+	 <option value="16:00">16:00</option>
+	 <option value="17:00">17:00</option>
+	 <option value="18:00">18:00</option>
+	 <option value="19:00">19:00</option>
+	 <option value="20:00">20:00</option>
+	 <option value="21:00">21:00</option>
+	 <option value="22:00">22:00</option>
+	 <option value="23:00">23:00</option>
+        </select>
+
+        <button type="submit">Envoyer</button>
+       </form>
+      </div>
+     </div>
     </div>
   </div>
 </body>

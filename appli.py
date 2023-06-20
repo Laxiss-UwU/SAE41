@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
+from jinja2 import Environment, FileSystemLoader
 
 app = Flask(__name__)
 
@@ -22,6 +23,7 @@ def connexion():
 
 		if result is not None:
 			for x in result:
+				global nom_utilisateur
 				nom_utilisateur=x[0]
 			return render_template("login.html",nom_utilisateur=nom_utilisateur)
 		else:
@@ -68,13 +70,19 @@ def register():
 
 @app.route("/login.html", methods = ["POST", "GET"])
 def calendar():
-	tableau_rdv = {}
+	user = "dimitri"
 	cursor = mysql.connection.cursor()
-	user_id = "SELECT id FROM users WHERE username = nom_utilisateur"
+	requete = "SELECT id FROM users WHERE username = '%s'"
+	cursor.execute(requete, user)
+	table = cursor.fetchnone()
+	user_id = table[0]
+
 	query = "SELECT dates FROM meetings WHERE id_owner = %s"
 	cursor.execute(query, (user_id))
 	result = cursor.fetchall()
 	cursor.close()
+
+	tableau_rdv = []
 	
 	for x in result:
 		date = x[0][:-5]
@@ -82,8 +90,9 @@ def calendar():
 		caractere = "h"
 		taille = len(heure) // 2
 		heure_finale = heure[:taille] + caractere + heure[taille:]
-		tableau_rdv = {date,heure_finale}
-	return render_template("login.html",date=date,heure_finale=heure_finale, tableau_rdv=tableau_rdv)
+		tableau_rdv.append([date,heure_finale])
+
+	return render_template("login.html", tableau_rdv=tableau_rdv, nom_utilisateur=nom_utilisateur, user_id=user_id)
 
 if __name__ == "__main__":
     app.run()
