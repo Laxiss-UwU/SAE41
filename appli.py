@@ -44,7 +44,7 @@ def register():
 		password = request.form["mdp"]
 		cursor = mysql.connection.cursor()
 		query = "INSERT INTO users (username, password) VALUES (%s, %s)"
-		cursor.execute(query, (username, password))
+		cursor.execute(query, (username, password,))
 		mysql.connection.commit()
 		cursor.close()
 		return render_template("inscrit.html")
@@ -70,11 +70,28 @@ def calendar():
 	result = cursor.fetchall()
 	cursor.close()
 	
+	day=""
+	month=""
+	year=""
+	hour=""
+	
 	for x in result:
 		day = x[0]
 		month = x[1]
 		year = x[2]
 		hour = x[3]
+
+	if request.method == "POST":
+		j = request.form.get("le_jour")
+		m = request.form.get("le_mois")
+		a = request.form.get("l_annee")
+		h = request.form.get("l_heure")
+		cursor = mysql.connection.cursor()
+		query = "INSERT INTO rdv (id_user, jour, mois, annee, heure) VALUES (%s, %s, %s, %s, %s)"
+		cursor.execute(query, (user_id, j, m, a, h,))
+		mysql.connection.commit()
+		cursor.close()
+		return redirect('/login.html')
 
 	return render_template("login.html", nom_utilisateur=nom_utilisateur, user_id=user_id, day=day, month=month, year=year, hour=hour, result=result)
 

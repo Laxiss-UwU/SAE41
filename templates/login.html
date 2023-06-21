@@ -197,9 +197,9 @@
 	<iframe name="InlineFrame1" id="InlineFrame1" style="width:690px;height:235px;" src="https://www.mathieuweb.fr/calendrier/calendrier-des-semaines.php?nb_mois=1&nb_mois_ligne=4&mois=0&an=0&langue=fr&texte_color=95DD90&week_color=E4F8EF&week_end_color=C9EDD8&police_color=4A4A4A&sel=true" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
        </div>
        <div class="div2">        
-	<form>
+	<form method="POST" action="/login.html">
         <label for="date" style="text-align:center;margin-bottom:10px;">Date et heure du rendez-vous:</label>
-	<select>
+	<select name="le_jour">
          <option value="">Choisissez le jour</option>
 	 <option value="01">01</option>
 	 <option value="02">02</option>
@@ -234,7 +234,7 @@
 	 <option value="31">31</option>
         </select>
 
-	<select>
+	<select name="le_mois">
          <option value="">Choisissez le mois</option>
 	 <option value="Janvier">Janvier</option>
 	 <option value="Février">Février</option>
@@ -250,7 +250,7 @@
 	 <option value="Décembre">Décembre</option>
         </select>
 
-	<select>
+	<select name="l_annee">
          <option value="">Choisissez l'année</option>
 	 <option value="2023">2023</option>
 	 <option value="2024">2024</option>
@@ -265,7 +265,7 @@
 	 <option value="2033">2033</option>
         </select>
 
-	<select>
+	<select name="l_heure">
          <option value="">Choisissez l'heure</option>
 	 <option value="00:00">00:00</option>
 	 <option value="01:00">01:00</option>
