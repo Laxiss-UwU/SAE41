@@ -65,21 +65,23 @@ def calendar():
 		user_id = table[0][0]
 
 	cursor = mysql.connection.cursor()
-	query = "SELECT jour, mois, annee, heure FROM rdv WHERE id_user = %s"
+	query = "SELECT id_rdv, jour, mois, annee, heure FROM rdv WHERE id_user = %s"
 	cursor.execute(query, (user_id,))
 	result = cursor.fetchall()
 	cursor.close()
 	
+	id=""
 	day=""
 	month=""
 	year=""
 	hour=""
 	
 	for x in result:
-		day = x[0]
-		month = x[1]
-		year = x[2]
-		hour = x[3]
+		id=x[0]
+		day = x[1]
+		month = x[2]
+		year = x[3]
+		hour = x[4]
 
 	if request.method == "POST":
 		j = request.form.get("le_jour")
