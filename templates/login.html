@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
-  <link rel="stylesheet" href="style.css">
   <title>DJ Calendar</title>
   <style>
 
@@ -141,11 +139,39 @@
      background-color: #45a049;
     }
 
+    .button2 {
+     background-color: #fff;
+     color: #4CAF50;
+     border: none;
+     cursor: pointer;
+    }
+
+    .button2:hover {
+     background-color: #dffadc;
+    }
+
+    .button3 {
+     background-color: #4CAF50;
+     color: #fff;
+     border: none;
+     cursor: pointer;
+     border-radius:2px;
+     padding:5px;
+     width:100%;
+    }
+
+    .button3:hover {
+     background-color: #45a049;
+    }
+
   </style>
 </head>
 <body>
 <header>
 	<p>Bonjour {{ nom_utilisateur }} ! Bienvenue dans votre espace personnel !</p>
+	<form action="/logout" method="post" style="border: 1px solid #4CAF50;">
+    		<button type="submit" class="button2">Se déconnecter</button>
+  	</form>
 </header>
   <div class="container">
     <div class="left">
@@ -160,16 +186,21 @@
 	   <th>Mois</th>
 	   <th>Année</th>
            <th>Heure</th>
+	   <th> Annulation </th>
           </tr>
          </thead>
          <tbody>
-          {% for id, day, month, year, hour in result %}
+          {% for id, contenu in tableau_rdv.items() %}
           <tr>
 	   <td>{{ id }}</td>
-           <td>{{ day }}</td>
-           <td>{{ month }}</td>
-	   <td>{{ year }}</td>
-	   <td>{{ hour }}</td>
+           <td>{{ contenu.day }}</td>
+           <td>{{ contenu.month }}</td>
+	   <td>{{ contenu.year }}</td>
+	   <td>{{ contenu.hour }}</td>
+	   <form method="post" action="/delete">
+	   <td> <input type="hidden" name="id" value="{{ id }}">
+		<input type="submit" value="Supprimer" class="button3"></td>
+	   </form>
           </tr>
           {% endfor %}
          </tbody>

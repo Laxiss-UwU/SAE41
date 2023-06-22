@@ -22,13 +22,14 @@ def connexion():
 		result = cursor.fetchall()
 		cursor.close()
 
-		if result is not None:
+		if result:
 			for x in result:
 				nom_utilisateur=x[0]
 				return redirect('/login.html')
 		else:
-			return render_template("index.html")
-
+			error = "Nom d'utilisateur ou mot de passe incorrect !"
+			return render_template("index.html", error=error)
+	
 	return render_template("index.html")
 
 @app.route("/index.html", methods = ["POST", "GET"])
@@ -76,12 +77,17 @@ def calendar():
 	year=""
 	hour=""
 	
+	tableau_rdv={}	
+	
 	for x in result:
 		id=x[0]
-		day = x[1]
-		month = x[2]
-		year = x[3]
-		hour = x[4]
+		contenu = {
+			"day" : x[1],
+			"month" : x[2],
+			"year" : x[3],
+			"hour" : x[4]	
+		}
+		tableau_rdv[id] = contenu
 
 	if request.method == "POST":
 		j = request.form.get("le_jour")
@@ -95,7 +101,21 @@ def calendar():
 		cursor.close()
 		return redirect('/login.html')
 
-	return render_template("login.html", nom_utilisateur=nom_utilisateur, user_id=user_id, day=day, month=month, year=year, hour=hour, result=result)
+	return render_template("login.html", nom_utilisateur=nom_utilisateur, user_id=user_id, tableau_rdv=tableau_rdv)
+
+@app.post("/logout")
+def logout():
+    return redirect("/index.html")
+
+@app.post("/delete")
+def supp():
+	cursor = mysql.connection.cursor()
+	id = request.form["id"]
+	query = "DELETE FROM rdv WHERE id_rdv = %s"
+	cursor.execute(query, (id,))
+	mysql.connection.commit()
+	cursor.close()
+	return redirect('/login.html')
 
 if __name__ == "__main__":
     app.run()
