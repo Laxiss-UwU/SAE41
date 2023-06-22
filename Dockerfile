@@ -8,9 +8,6 @@ RUN apt-get -y install default-libmysqlclient-dev
 RUN pip install flask
 RUN pip install flask-mysqldb
 
-COPY templates/* ./
-COPY appli.py ./
-COPY ./*.sh ./
-COPY *.sql ./
+COPY ./app/ ./
 
 CMD /usr/local/bin/flask --app appli.py run 
