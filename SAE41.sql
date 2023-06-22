@@ -16,81 +16,55 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `answers`
+-- Table structure for table `ok`
 --
 
-DROP TABLE IF EXISTS `answers`;
+DROP TABLE IF EXISTS `ok`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `answers` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `user` varchar(30) NOT NULL,
-  `id_da` int NOT NULL,
-  `id_reu` int NOT NULL,
-  `rep` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `answers`
---
-
-LOCK TABLES `answers` WRITE;
-/*!40000 ALTER TABLE `answers` DISABLE KEYS */;
-INSERT INTO `answers` VALUES (1,'dimitri',1,1,1);
-/*!40000 ALTER TABLE `answers` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `dates`
---
-
-DROP TABLE IF EXISTS `dates`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dates` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_owner` int NOT NULL,
+CREATE TABLE `ok` (
   `id_meetings` int NOT NULL,
-  `dates` varchar(15) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `validation` int NOT NULL,
+  PRIMARY KEY (`id_meetings`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `dates`
+-- Dumping data for table `ok`
 --
 
-LOCK TABLES `dates` WRITE;
-/*!40000 ALTER TABLE `dates` DISABLE KEYS */;
-INSERT INTO `dates` VALUES (1,2,1,'20230615:1400'),(2,2,2,'20230615:1600'),(3,1,3,'20230715:1000');
-/*!40000 ALTER TABLE `dates` ENABLE KEYS */;
+LOCK TABLES `ok` WRITE;
+/*!40000 ALTER TABLE `ok` DISABLE KEYS */;
+INSERT INTO `ok` VALUES (1,0),(2,0),(3,0),(4,0),(5,0),(6,0);
+/*!40000 ALTER TABLE `ok` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `meetings`
+-- Table structure for table `rdv`
 --
 
-DROP TABLE IF EXISTS `meetings`;
+DROP TABLE IF EXISTS `rdv`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `meetings` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_owner` int NOT NULL,
-  `date` varchar(15) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `rdv` (
+  `id_rdv` int NOT NULL AUTO_INCREMENT,
+  `id_user` int NOT NULL,
+  `jour` varchar(10) NOT NULL,
+  `mois` varchar(20) NOT NULL,
+  `annee` varchar(10) NOT NULL,
+  `heure` varchar(20) NOT NULL,
+  PRIMARY KEY (`id_rdv`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `meetings`
+-- Dumping data for table `rdv`
 --
 
-LOCK TABLES `meetings` WRITE;
-/*!40000 ALTER TABLE `meetings` DISABLE KEYS */;
-INSERT INTO `meetings` VALUES (1,2,'20230615:1400'),(2,2,'20230615:1600'),(3,1,'20230715:1000');
-/*!40000 ALTER TABLE `meetings` ENABLE KEYS */;
+LOCK TABLES `rdv` WRITE;
+/*!40000 ALTER TABLE `rdv` DISABLE KEYS */;
+INSERT INTO `rdv` VALUES (1,1,'10','juin','2023','14:00'),(2,1,'25','juin','2023','14:00'),(3,2,'14','juin','2023','14:00'),(4,1,'01','Janvier','2024','10:00'),(5,1,'10','Août','2025','14:00'),(6,1,'16','Juin','2028','20:00'),(7,2,'06','Octobre','2023','12:00'),(8,3,'06','Octobre','2023','12:00');
+/*!40000 ALTER TABLE `rdv` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -105,7 +79,7 @@ CREATE TABLE `users` (
   `username` varchar(20) NOT NULL,
   `password` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,7 +88,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'dimitri','dimitri'),(2,'julien','julien'),(3,'marc','marc'),(4,'axel','axel'),(5,'mattéo','mattéo');
+INSERT INTO `users` VALUES (1,'dimitri','dimitri'),(2,'julien','julien'),(3,'marc','marc'),(4,'axel','axel'),(5,'mattéo','mattéo'),(6,'arthur','arthur'),(7,'kram','keam'),(8,'marc','marc'),(9,'martin','martin'),(10,'caca','caca'),(11,'prout','prout');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -127,4 +101,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-19  9:14:07
+-- Dump completed on 2023-06-22 10:12:57
