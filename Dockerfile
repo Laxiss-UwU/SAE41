@@ -10,4 +10,4 @@ RUN pip install flask-mysqldb
 
 COPY ./app/ ./
 
-CMD /usr/local/bin/flask --app appli.py run 
+CMD /usr/local/bin/flask run --host=0.0.0.0 --port=5000 --app=appli.py
